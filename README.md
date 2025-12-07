@@ -1,2 +1,2 @@
 MyCompany.Api
-Trigger CI run
+Trigger CI runSanity check CI + protection
