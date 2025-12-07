@@ -33,6 +33,18 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.MapGet("/notes", () =>
+{
+    var notes = new[]
+    {
+        new { Id = 1, Text = "First note", CreatedAt = DateTime.UtcNow },
+        new { Id = 2, Text = "Second note", CreatedAt = DateTime.UtcNow }
+    };
+
+    return Results.Ok(notes);
+})
+.WithName("GetNotes");
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
