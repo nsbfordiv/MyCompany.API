@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'   # change to '10.0.x' when you move to .NET 10
+          dotnet-version: '9.0.x'
 
       - name: Restore dependencies
         run: dotnet restore MyCompany.Api/MyCompany.Api.csproj
@@ -31,5 +31,4 @@ jobs:
         run: dotnet build MyCompany.Api/MyCompany.Api.csproj --configuration Release --no-restore
 
       - name: Test
-        # This will succeed even if there are 0 tests
         run: dotnet test MyCompany.Api/MyCompany.Api.csproj --configuration Release --no-build --verbosity normal
