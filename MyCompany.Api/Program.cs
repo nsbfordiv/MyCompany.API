@@ -1,5 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Option A: explicitly add console + debug
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); // for terminal / dotnet run
+builder.Logging.AddDebug();   // for Visual Studio Output window
+builder.Logging.SetMinimumLevel(LogLevel.Information); // optional but nice
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -18,6 +24,23 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+
+app.MapGet("/weather", (ILogger<Program> logger) =>
+{
+    var temperature = Random.Shared.Next(-20, 55);
+    var city = "Phoenix";
+
+    // Structured logging
+    logger.LogInformation(
+        "Weather requested for {City} at {Timestamp} with temperature {TemperatureC}",
+        city,
+        DateTimeOffset.UtcNow,
+        temperature
+    );
+
+    return Results.Ok(new { City = city, TemperatureC = temperature });
+});
 
 app.MapGet("/weatherforecast", () =>
 {
