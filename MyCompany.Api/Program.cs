@@ -28,7 +28,7 @@ var summaries = new[]
 
 app.MapGet("/weather", (ILogger<Program> logger) =>
 {
-    var temperature = Random.Shared.Next(-20, 55);
+    var temperature = Random.Shared.Next(-60, 55);
     var city = "Phoenix";
 
     // Structured logging
@@ -58,10 +58,11 @@ app.MapGet("/weatherforecast", () =>
 
 app.MapGet("/notes", () =>
 {
+    Span<int> number = stackalloc int[5] { 10, 20, 30, 40, 50 };
     var notes = new[]
     {
-        new { Id = 1, Text = "First note", CreatedAt = DateTime.UtcNow },
-        new { Id = 2, Text = "Second note", CreatedAt = DateTime.UtcNow }
+        new { Id = number[0] = 99, Text = "First note", CreatedAt = DateTime.UtcNow },
+        new { Id = number[1] = 123, Text = "Second note", CreatedAt = DateTime.UtcNow }
     };
 
     return Results.Ok(notes);
