@@ -58,14 +58,25 @@ app.MapGet("/weatherforecast", () =>
 
 app.MapGet("/notes", () =>
 {
-    Span<int> number = stackalloc int[5] { 10, 20, 30, 40, 50 };
-    var notes = new[]
+    var numbers = new List<int> { 1, 2, 3 };
+    numbers.Add(4);
+    numbers.Insert(0, 0);
+    numbers.Remove(2);
+    foreach (var num in numbers)
     {
-        new { Id = number[0] = 99, Text = "First note", CreatedAt = DateTime.UtcNow },
-        new { Id = number[1] = 123, Text = "Second note", CreatedAt = DateTime.UtcNow }
-    };
+        Console.WriteLine(num);
 
-    return Results.Ok(notes);
+        //Span<int> numbered = stackalloc int[5] { 10, 20, 30, 40, 50 };
+        //var notes = new[]
+
+        //{
+        //new { Id = number[0] = 99, Text = "First note", CreatedAt = DateTime.UtcNow },
+        //new { Id = number[1] = 123, Text = "Second note", CreatedAt = DateTime.UtcNow }
+        //new { Id = numbered[0] = 99, Text = num, CreatedAt = DateTime.UtcNow },
+        //};
+    }
+        return Results.Ok(numbers);
+    
 })
 .WithName("GetNotes");
 
